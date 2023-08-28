@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios, {AxiosResponse} from 'axios';
-import { bottomNavigationActionClasses } from "@mui/material";
+import axios from 'axios';
+import { Card, CircularProgress } from "@mui/material";
 
 async function build_weather_data_url(): Promise<string> {
     const BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -64,10 +64,19 @@ function Forecast() {
     }, [count]);
 
     return (
-        <div>
-      {/* Render your component using the fetched data */}
-      {forecastData?.properties?.periods[0]?.temperature}
-    </div>
+        <>
+            <Card>
+            {
+                forecastData ? (
+                    <>
+                    {forecastData?.properties?.periods[0]?.temperature}
+                    </>
+                ) : (
+                    <CircularProgress />
+                )
+            }
+            </Card>
+        </>
     );
 }
 
